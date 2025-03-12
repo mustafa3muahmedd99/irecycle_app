@@ -1,10 +1,13 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
+import 'package:graduation_project11/core/themes/app__theme.dart';
+import 'package:graduation_project11/core/widgets/custom_appbar.dart';
 
 class LanguagesScreen extends StatefulWidget {
   final Function(Locale) onLocaleChange;
 
-  const LanguagesScreen({Key? key, required this.onLocaleChange})
-    : super(key: key);
+  const LanguagesScreen({super.key, required this.onLocaleChange});
 
   @override
   _LanguagesScreenState createState() => _LanguagesScreenState();
@@ -16,12 +19,14 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Language'),
-        backgroundColor: Colors.green,
+      appBar: CustomAppBar(
+        title: 'Languages',
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {},
+          icon: Icon(
+            Icons.arrow_back,
+            color: AppTheme.light.colorScheme.secondary,
+          ),
         ),
       ),
       body: Padding(

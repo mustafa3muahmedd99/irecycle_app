@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:graduation_project11/core/routes/routes_name.dart';
-import 'package:graduation_project11/features/auth/sign_in/presentation/screen/sign_in_screen.dart';
-import 'package:graduation_project11/features/auth/sign_up/presentation/screen/sign_up_screen1.dart';
 import 'package:graduation_project11/features/balance/presentation/screens/balance_screen.dart';
 import 'package:graduation_project11/features/stores/screen/stores_screen.dart';
 import 'package:graduation_project11/screens/home_screen.dart';
@@ -15,18 +13,6 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (_) {
             return SplashScreen();
-          },
-        );
-      case RoutesName.SignIn:
-        return MaterialPageRoute(
-          builder: (_) {
-            return SignInScreen();
-          },
-        );
-      case RoutesName.SignUp:
-        return MaterialPageRoute(
-          builder: (_) {
-            return SignUpScreen1();
           },
         );
       case RoutesName.Home:

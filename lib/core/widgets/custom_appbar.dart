@@ -12,17 +12,24 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: false,
       backgroundColor: AppTheme.light.colorScheme.primary,
-      title: Text(
-        title,
-        style: TextStyle(
-          color: AppTheme.light.colorScheme.secondary,
-          fontWeight: FontWeight.w600,
+      flexibleSpace: Align(
+        alignment: Alignment.bottomCenter,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Text(
+            title,
+            style: TextStyle(
+              color: AppTheme.light.colorScheme.secondary,
+              fontWeight: FontWeight.w600,
+              fontSize: 20,
+            ),
+          ),
         ),
       ),
       centerTitle: true,
       leading: leading,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(25)),
       ),
     );
   }

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:graduation_project11/core/themes/app__theme.dart';
@@ -20,6 +22,7 @@ class _OtpAuthenticationScreenState extends State<OtpAuthenticationScreen> {
     6,
     (index) => TextEditingController(),
   );
+  Timer? _timer; // ✅ متغير لحفظ التايمر
 
   void startTimer() {
     setState(() {
@@ -27,7 +30,7 @@ class _OtpAuthenticationScreenState extends State<OtpAuthenticationScreen> {
       canResend = false;
     });
 
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (countdown > 0) {
         setState(() {
           countdown--;
@@ -62,6 +65,17 @@ class _OtpAuthenticationScreenState extends State<OtpAuthenticationScreen> {
   }
 
   @override
+  void dispose() {
+    _timer?.cancel(); // ✅ إلغاء التايمر عند الخروج من الصفحة
+    super.dispose();
+  }
+
+  void _handleBack() {
+    _timer?.cancel(); // ✅ إيقاف التايمر
+    Navigator.pop(context); // ✅ الرجوع للصفحة السابقة
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.light.colorScheme.secondary,
@@ -71,7 +85,13 @@ class _OtpAuthenticationScreenState extends State<OtpAuthenticationScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 30),
-            Icon(Icons.arrow_back, color: AppTheme.light.colorScheme.primary),
+            IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: AppTheme.light.colorScheme.primary,
+              ),
+              onPressed: _handleBack, // ✅ ربط زر الرجوع بالدالة
+            ),
             SizedBox(height: 15), // ✅ زودنا المسافة بعد السهم
             Padding(
               padding: const EdgeInsets.all(12.0),
@@ -154,6 +174,7 @@ class _OtpAuthenticationScreenState extends State<OtpAuthenticationScreen> {
                 );
               }),
             ),
+            SizedBox(height: 10),
             if (isInvalidCode)
               Center(
                 child: Text(

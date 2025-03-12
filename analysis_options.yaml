@@ -10,6 +10,7 @@
 analyzer:
   errors:
     prefer_final_fields: ignore
+    avoid_types_as_parameter_names: ignore
 include: package:flutter_lints/flutter.yaml
 
 linter:
