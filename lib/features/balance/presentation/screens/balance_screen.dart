@@ -83,10 +83,11 @@ class _BalanceScreenState extends State<BalanceScreen> {
                           children: [
                             Image.asset(
                               'assets/icons/points.jpeg',
-                              width: 30,
-                              height: 30,
+                              width: 20,
+                              height: 20,
                               fit: BoxFit.cover,
                             ),
+                            SizedBox(width: 2),
                             Text(
                               "2000",
                               style: TextStyle(
@@ -122,10 +123,11 @@ class _BalanceScreenState extends State<BalanceScreen> {
                           children: [
                             Image.asset(
                               'assets/icons/rewards.png',
-                              width: 30,
-                              height: 30,
+                              width: 20,
+                              height: 20,
                               fit: BoxFit.cover,
                             ),
+                            SizedBox(width: 2),
                             Text(
                               "100",
                               style: TextStyle(

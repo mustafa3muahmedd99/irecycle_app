@@ -4,6 +4,8 @@ import 'package:graduation_project11/core/routes/routes_name.dart';
 import 'package:graduation_project11/core/themes/app__theme.dart';
 import 'package:graduation_project11/core/widgets/custom_bottomnavigationbar.dart';
 import 'package:graduation_project11/features/balance/presentation/screens/balance_screen.dart';
+import 'package:graduation_project11/features/categories/screen/cans/screens/cans_screen.dart';
+import 'package:graduation_project11/features/categories/screen/glass/screens/glass_screen.dart';
 import 'package:graduation_project11/features/notification/presentation/screens/notications_screen.dart';
 import 'package:graduation_project11/features/recycling/presentation/screens/scan_screen.dart';
 import 'package:graduation_project11/features/stores/screen/stores_screen.dart';
@@ -184,7 +186,7 @@ class HomeScreen extends StatelessWidget {
           SizedBox(height: 10),
           _buildCategoriesHeader(),
           SizedBox(height: 10),
-          _buildCategoriesGrid(size),
+          _buildCategoriesGrid(context, size),
           SizedBox(height: 12),
           _buildScanSection(context),
         ],
@@ -206,7 +208,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoriesGrid(Size size) {
+  Widget _buildCategoriesGrid(BuildContext context, Size size) {
     return Expanded(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 18),
@@ -214,38 +216,46 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // ✅ العنصر العلوي
-            Container(
-              padding: EdgeInsets.only(bottom: 6),
-              width: double.infinity,
-              height: 150,
-              decoration: BoxDecoration(
-                color: AppTheme.light.colorScheme.primary,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.white),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.asset(
-                        'assets/images/glass1.jpg',
-                        fit: BoxFit.fill,
-                        width: double.infinity,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => GlassScreen()),
+                );
+              },
+              child: Container(
+                padding: EdgeInsets.only(bottom: 6),
+                width: double.infinity,
+                height: 150,
+                decoration: BoxDecoration(
+                  color: AppTheme.light.colorScheme.primary,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.white),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.asset(
+                          'assets/images/glass1.jpg',
+                          fit: BoxFit.fill,
+                          width: double.infinity,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Glasses',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
+                    SizedBox(height: 8),
+                    Text(
+                      'Glasses',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 
@@ -259,7 +269,12 @@ class HomeScreen extends StatelessWidget {
                       'assets/images/plastic1.jpg',
                       'Plastic',
                       size,
-                      Colors.blue,
+                      () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => CansScreen()),
+                        );
+                      },
                     ),
                   ),
                   SizedBox(width: 10),
@@ -268,7 +283,12 @@ class HomeScreen extends StatelessWidget {
                       'assets/images/cans1.jpg',
                       'Cans',
                       size,
-                      Colors.red,
+                      () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => CansScreen()),
+                        );
+                      },
                     ),
                   ),
                 ],
@@ -284,36 +304,47 @@ class HomeScreen extends StatelessWidget {
     String imagePath,
     String title,
     Size size,
-    dynamic onTap,
+    VoidCallback onTap, // تغيير النوع من dynamic إلى VoidCallback
   ) {
-    return Container(
-      padding: EdgeInsets.only(bottom: 6),
-      decoration: BoxDecoration(
-        color: AppTheme.light.colorScheme.primary,
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      child: Column(
-        children: [
-          Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Image.asset(
-                imagePath,
-                width: double.infinity,
-                fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: onTap, // هنا بنستخدم الـ onTap اللي جه من البارامتر
+      child: Container(
+        width: size.width,
+        height: size.height,
+        decoration: BoxDecoration(
+          color: AppTheme.light.colorScheme.primary,
+          borderRadius: BorderRadius.circular(12.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              blurRadius: 5.0,
+              spreadRadius: 2.0,
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image.asset(
+                  imagePath,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 5),
-          Text(
-            title,
-            style: TextStyle(
-              color: AppTheme.light.colorScheme.secondary,
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
+            SizedBox(height: 5),
+            Text(
+              title,
+              style: TextStyle(
+                color: AppTheme.light.colorScheme.secondary,
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -334,11 +365,12 @@ class HomeScreen extends StatelessWidget {
           Text(
             'What do you want to recycle?',
             style: TextStyle(
-              fontSize: 22,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
               color: AppTheme.light.colorScheme.primary,
             ),
           ),
+          SizedBox(height: 5),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: AppTheme.light.colorScheme.primary,
@@ -402,13 +434,6 @@ Widget _buildPointsCard(BuildContext context, Size size, ColorScheme theme) {
               ],
             ),
             const SizedBox(width: 8),
-            IconButton(
-              color: theme.primary,
-              onPressed: () {
-                Navigator.pushNamed(context, RoutesName.Balance);
-              },
-              icon: Icon(Icons.chevron_right),
-            ),
           ],
         ),
         Column(

@@ -5,16 +5,15 @@ import 'package:graduation_project11/core/themes/app__theme.dart';
 import 'package:graduation_project11/core/widgets/custom_appbar.dart';
 
 class LanguagesScreen extends StatefulWidget {
-  final Function(Locale) onLocaleChange;
-
-  const LanguagesScreen({super.key, required this.onLocaleChange});
+  const LanguagesScreen({super.key});
 
   @override
-  _LanguagesScreenState createState() => _LanguagesScreenState();
+  _LanguageSelectionScreenState createState() =>
+      _LanguageSelectionScreenState();
 }
 
-class _LanguagesScreenState extends State<LanguagesScreen> {
-  String _selectedLanguage = 'en';
+class _LanguageSelectionScreenState extends State<LanguagesScreen> {
+  String selectedLanguage = 'English';
 
   @override
   Widget build(BuildContext context) {
@@ -22,50 +21,72 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
       appBar: CustomAppBar(
         title: 'Languages',
         leading: IconButton(
-          onPressed: () {},
           icon: Icon(
             Icons.arrow_back,
             color: AppTheme.light.colorScheme.secondary,
           ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
+            // شريط البحث
             TextField(
               decoration: InputDecoration(
-                hintText: 'Search for help',
-                prefixIcon: const Icon(Icons.search),
+                hintText: 'search for help',
+                prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(20.0),
+                  borderSide: BorderSide.none,
                 ),
+                filled: true,
+                fillColor: Colors.grey[200],
               ),
             ),
-            const SizedBox(height: 20),
-            ListTile(
-              leading: const Icon(Icons.flag),
-              title: const Text('English'),
-              trailing:
-                  _selectedLanguage == 'en' ? const Icon(Icons.check) : null,
-              onTap: () {
-                setState(() => _selectedLanguage = 'en');
-                widget.onLocaleChange(const Locale('en'));
-              },
+            SizedBox(height: 20),
+            // قائمة اللغات
+            Container(
+              alignment: Alignment.center,
+              height: 55,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                border: Border.all(color: AppTheme.light.colorScheme.primary),
+              ),
+              child: _buildLanguageTile('English', '🇬🇧'),
             ),
-            ListTile(
-              leading: const Icon(Icons.flag),
-              title: const Text('Arabic'),
-              trailing:
-                  _selectedLanguage == 'ar' ? const Icon(Icons.check) : null,
-              onTap: () {
-                setState(() => _selectedLanguage = 'ar');
-                widget.onLocaleChange(const Locale('ar'));
-              },
+            SizedBox(height: 10),
+            Container(
+              alignment: Alignment.center,
+              height: 55,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                border: Border.all(color: AppTheme.light.colorScheme.primary),
+              ),
+              child: _buildLanguageTile('Arabic', '🇪🇬'),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildLanguageTile(String language, String flag) {
+    return ListTile(
+      leading: Text(flag, style: TextStyle(fontSize: 20)),
+      title: Text(language, style: TextStyle(fontWeight: FontWeight.w500)),
+      trailing:
+          selectedLanguage == language
+              ? Icon(Icons.check, color: Colors.green)
+              : null,
+      onTap: () {
+        setState(() {
+          selectedLanguage = language;
+        });
+      },
     );
   }
 }

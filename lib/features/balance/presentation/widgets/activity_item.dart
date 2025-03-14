@@ -56,8 +56,8 @@ class ActivityItem extends StatelessWidget {
           Spacer(),
           Image.asset(
             'assets/icons/points.jpeg',
-            width: 30,
-            height: 30,
+            width: 25,
+            height: 25,
             fit: BoxFit.cover,
           ),
           Text(

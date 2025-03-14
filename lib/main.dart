@@ -7,8 +7,11 @@ import 'package:graduation_project11/features/auth/otp/presentation/screens/otp_
 import 'package:graduation_project11/features/auth/sign_in/presentation/screen/sign_in_screen.dart';
 import 'package:graduation_project11/features/auth/update_password/screens/update_password_screen1.dart';
 import 'package:graduation_project11/features/auth/update_password/screens/update_password_screen2.dart';
+import 'package:graduation_project11/screens/FAQ_screen.dart';
 import 'package:graduation_project11/screens/home_screen.dart';
 import 'package:graduation_project11/screens/languages_screen.dart';
+import 'package:graduation_project11/screens/profile_screen.dart';
+import 'package:graduation_project11/screens/recycle_bag_screen.dart';
 import 'package:graduation_project11/screens/splash_screen.dart';
 
 void main() {
